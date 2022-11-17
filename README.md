@@ -1,0 +1,2 @@
+# bujit
+A budgeting application
