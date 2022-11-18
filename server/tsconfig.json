@@ -6,12 +6,14 @@
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
+    "strictNullChecks": true,
     "outDir": "dist",
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
       "*": [
-        "node_modules/*"
+        "node_modules/*",
+        "dist/*"
       ]
     }
   },

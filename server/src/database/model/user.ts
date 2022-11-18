@@ -1,14 +1,14 @@
-import { Schema, model } from "mongoose"
+import { Schema, model } from 'mongoose'
 
 const UserSchema = new Schema({
-    email: {
-        type: String,
-        required: true
-    },
-    passwordHash: {
-        type: String,
-        required: true
-    }
-}, {timestamps: true})
+  email: {
+    type: String,
+    required: true
+  },
+  passwordHash: {
+    type: String,
+    required: true
+  }
+}, { timestamps: true })
 
-module.exports = model('user', UserSchema);
+module.exports = model('user', UserSchema)
