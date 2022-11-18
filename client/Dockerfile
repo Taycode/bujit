@@ -11,18 +11,19 @@ ENV NODE_CONFIG_ENV dev
 #   && echo "Africa/Lagos" > /etc/timezone \\
 #   && apk del tzdata
 # Create Directory for the Container
-WORKDIR /usr/src/server
+WORKDIR /usr/src/client
 # Only copy the package.json file to work directory
 COPY package.json .
-COPY yarn.lock .
+COPY package-lock.json .
 
 # Install all Packages
-RUN yarn install
+RUN npm install
 # Copy all other source code to work directory
-ADD . /usr/src/server
-# TypeScript
-RUN yarn run tsc
-# Start
 
-CMD [ "yarn", "run", "dev:run" ]
+ADD . /usr/src/client
+
+RUN yarn run tsc
+
 EXPOSE 3000
+
+CMD [ "yarn", "start" ]

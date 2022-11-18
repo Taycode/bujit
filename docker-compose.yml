@@ -8,3 +8,11 @@ services:
     volumes:
       - ./server:/usr/src/server
       - /usr/src/server/node_modules
+  client:
+    build:
+      context: ./client
+    ports:
+      - 7002:3000
+    volumes:
+      - ./client:/usr/src/client
+      - /usr/src/client/node_modules
