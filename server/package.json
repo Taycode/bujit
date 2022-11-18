@@ -11,6 +11,7 @@
     "tsc": "tsc",
     "build": "npm-run-all clean lint tsc",
     "dev:start": "npm-run-all build start",
+    "dev:run": "nodemon ./index.ts",
     "dev": "nodemon --watch src -e ts,ejs --exec yarn run dev:start",
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1",
