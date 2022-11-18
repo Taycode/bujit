@@ -21,5 +21,6 @@ ADD . /usr/src/server
 # TypeScript
 RUN yarn run tsc
 # Start
-CMD [ "yarn", "start" ]
+
+CMD [ "yarn", "run", "dev:run" ]
 EXPOSE 7001
