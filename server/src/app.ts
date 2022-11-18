@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express"
 import bodyParser from "body-parser"
-import {config} from "./config/config"
 import cors from "cors"
 
 

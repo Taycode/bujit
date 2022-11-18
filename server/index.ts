@@ -3,6 +3,7 @@ import {config} from "./src/config/config";
 import http from 'http';
 import {App} from './src/app';
 
+
 const PORT = config.PORT
 
 const Server = {
