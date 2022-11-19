@@ -6,6 +6,7 @@ import ScrollArea from 'react-scrollbar';
 import Navbar from './Navbar';
 import SideBar from './SideBar';
 import Dashboard from '../pages/Dashboard';
+import Budget from '../pages/Budget';
 
 function Layout() {
     return (
@@ -20,6 +21,7 @@ function Layout() {
                     className='h-full'>
                         <Routes>
                             <Route path='/dashboard' element={<Dashboard />} />
+                            <Route path='/budgets' element={<Budget />} />
                         </Routes>
                     </ScrollArea>
                 </main>

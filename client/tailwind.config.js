@@ -6,7 +6,9 @@ module.exports = {
       colors : {
         bujit : {
           100 : '#FFEAD1',
-          500 : '#FF961B'
+          500 : '#FF961B',
+          600 : '#D47D17',
+          900 : '#804B0E'
         },
         ash : {
           100 : '#EDEDED',
@@ -17,7 +19,11 @@ module.exports = {
           500 : '#FF2F2F'
         },
         secondary : {
-          500 : '#FDFDFD'
+          500 : '#FDFDFD',
+          700 : '#A9A9A9'
+        },
+        success : {
+          500 : '#1FD202'
         }
       }
     },
