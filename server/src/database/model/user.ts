@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose';
 
 const UserSchema = new Schema({
   email: {
@@ -9,6 +9,6 @@ const UserSchema = new Schema({
     type: String,
     required: true
   }
-}, { timestamps: true })
+}, { timestamps: true });
 
-module.exports = model('user', UserSchema)
+module.exports = model('user', UserSchema);

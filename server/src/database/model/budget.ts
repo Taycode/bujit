@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from 'mongoose'
+import mongoose, { Schema, model } from 'mongoose';
 
 const BudgetSchema = new Schema({
   name: {
@@ -10,6 +10,6 @@ const BudgetSchema = new Schema({
     required: true,
     ref: 'user'
   }
-}, { timestamps: true })
+}, { timestamps: true });
 
-module.exports = model('budget', BudgetSchema)
+module.exports = model('budget', BudgetSchema);
