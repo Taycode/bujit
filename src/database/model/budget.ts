@@ -12,4 +12,4 @@ const BudgetSchema = new Schema({
     }
 },{timestamps: true})
 
-module.exports = model('budget', BudgetSchema)
+export const budget = model('budget', BudgetSchema)
