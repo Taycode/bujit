@@ -4,15 +4,23 @@ services:
     build:
       context: ./server
     ports:
-      - 7001:3000
+      - "7001:4141"
     volumes:
       - ./server:/usr/src/server
-      - /usr/src/server/node_modules
   client:
     build:
       context: ./client
     ports:
-      - 7002:3000
+      - "7002:3000"
     volumes:
       - ./client:/usr/src/client
       - /usr/src/client/node_modules
+  bujit-db:
+    container_name: bujit-db
+    image: mongo
+    volumes:
+      - data:/data/db
+    ports:
+      - "27018:27017"
+volumes:
+  data:
