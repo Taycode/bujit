@@ -1,5 +1,5 @@
 import { BaseRepository } from './base';
-import { BudgetModel } from '../budget';
+import { BudgetModel } from '../model/budget';
 import { IBudget } from '../model/budget';
 
 export class BudgetRepository extends BaseRepository<IBudget>{
