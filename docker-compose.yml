@@ -7,7 +7,6 @@ services:
       - "7001:4141"
     volumes:
       - ./server:/usr/src/server
-      - /usr/src/server/node_modules
   client:
     build:
       context: ./client

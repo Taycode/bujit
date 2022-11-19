@@ -1,4 +1,4 @@
-import {Model} from "mongoose";
+import {Callback, FilterQuery, Model, ProjectionType, QueryOptions} from "mongoose";
 
 export class BaseRepository<T> {
     private Model: Model<T>;
@@ -11,8 +11,10 @@ export class BaseRepository<T> {
         return this.Model.create(payload);
     }
 
-    findOne(condition = {}) {
-        return this.Model.findOne({ ...condition });
+    async findOne(filter?: FilterQuery<T>,
+                  projection?: ProjectionType<T> | null,
+                  options?: QueryOptions<T> | null,) {
+        return this.Model.findOne(filter, projection, options) as T;
     }
 
     findById(id: string) {
