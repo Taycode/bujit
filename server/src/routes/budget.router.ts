@@ -1,7 +1,7 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-const router: Router = Router()
+const router: Router = Router();
 
-router.get('/')
+router.get('/');
 
-export const BudgetRouter: Router = router
+export const BudgetRouter: Router = router;

@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from 'mongoose'
+import mongoose, { Schema, model } from 'mongoose';
 
 const BudgetItemSchema = new Schema({
   budgetId: {
@@ -20,6 +20,6 @@ const BudgetItemSchema = new Schema({
     enum: ['recurring', 'non-recurring']
   }
 
-})
+});
 
-module.exports = model('budgetItems', BudgetItemSchema)
+module.exports = model('budgetItems', BudgetItemSchema);

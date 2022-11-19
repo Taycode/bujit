@@ -18,11 +18,13 @@ COPY yarn.lock .
 
 # Install all Packages
 RUN yarn install
+
 # Copy all other source code to work directory
-ADD . /usr/src/server
+COPY . .
+
 # TypeScript
 RUN yarn run tsc
 # Start
 
+EXPOSE 4141
 CMD [ "yarn", "run", "dev:run" ]
-EXPOSE 3000
