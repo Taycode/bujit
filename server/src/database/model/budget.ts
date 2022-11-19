@@ -2,7 +2,7 @@ import mongoose, { Schema, model } from 'mongoose';
 
 export interface IBudget {
   name: string;
-  userId: string;
+  userId: mongoose.Schema.Types.ObjectId;
 }
 
 const BudgetSchema = new Schema<IBudget>({
