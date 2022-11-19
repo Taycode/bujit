@@ -1,6 +1,11 @@
 import mongoose, { Schema, model } from 'mongoose';
 
-const BudgetSchema = new Schema({
+export interface IBudget {
+  name: string;
+  userId: string;
+}
+
+const BudgetSchema = new Schema<IBudget>({
   name: {
     type: String,
     required: true
@@ -12,4 +17,4 @@ const BudgetSchema = new Schema({
   }
 }, { timestamps: true });
 
-module.exports = model('budget', BudgetSchema);
+export const BudgetModel = model('budget', BudgetSchema);
