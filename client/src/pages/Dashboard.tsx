@@ -22,7 +22,7 @@ function Dashboard() {
                         <BudgetCard style={1} />
                         <BudgetCard style={2} />
                     </div>
-                    <Link to="/" className="mt-[75px] h-fit w-fit text-white flex bg-bujit-500 p-3 rounded-lg">
+                    <Link to="/budgets/create" className="mt-[75px] h-fit w-fit text-white flex bg-bujit-500 p-3 rounded-lg">
                         <img src={add} className="mr-2" />
                         Create Budget
                     </Link>

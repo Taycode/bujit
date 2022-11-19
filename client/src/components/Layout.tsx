@@ -7,6 +7,7 @@ import Navbar from './Navbar';
 import SideBar from './SideBar';
 import Dashboard from '../pages/Dashboard';
 import Budget from '../pages/Budget';
+import BudgetCreate from '../pages/BudgetCreate';
 
 function Layout() {
     return (
@@ -22,6 +23,7 @@ function Layout() {
                         <Routes>
                             <Route path='/dashboard' element={<Dashboard />} />
                             <Route path='/budgets' element={<Budget />} />
+                            <Route path='/budgets/create' element={<BudgetCreate />} />
                         </Routes>
                     </ScrollArea>
                 </main>
