@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors : {
         bujit : {
+          100 : '#FFEAD1',
           500 : '#FF961B'
         },
         ash : {
