@@ -1,0 +1,33 @@
+{
+  "default_branch": "master",
+  "branches": [
+    "budget-pocket-link",
+    "client-dev",
+    "cron",
+    "enhance-create-budget",
+    "master",
+    "origin",
+    "pocket-reference",
+    "process-budget"
+  ],
+  "parent": {
+    "budget-pocket-link": "master",
+    "client-dev": "master",
+    "cron": "master",
+    "enhance-create-budget": "master",
+    "master": null,
+    "origin": "master",
+    "pocket-reference": "master",
+    "process-budget": "master"
+  },
+  "order": [
+    "master",
+    "budget-pocket-link",
+    "client-dev",
+    "cron",
+    "enhance-create-budget",
+    "origin",
+    "pocket-reference",
+    "process-budget"
+  ]
+}
