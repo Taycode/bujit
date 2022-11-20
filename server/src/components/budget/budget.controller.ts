@@ -1,9 +1,10 @@
 import {Response} from "express";
 import { ICustomRequest } from "../../interface/custom-request.interface";
 import { BudgetItemRepository, BudgetRepository } from "../../database/repository/budget.repository";
-import { IBudgetItem } from "../../database/model/budgetItem";
 import {CreateBudgetDto} from "./dto/create-budget.dto";
-import {createBudget} from "./budget.service";
+import {createBudget, payBudget} from "./budget.service";
+import {VerifyPaymentDto} from "./dto/verify-payment.dto";
+import {verifyPayment} from "../../lib/seerbit/payment";
 
 export class BudgetController {
     async createBudget(req:ICustomRequest, res:Response) {
@@ -24,7 +25,6 @@ export class BudgetController {
             message: 'Budgets Retrieved',
             data: budgets,
         });
-
     }
 
     async getBudget(req: ICustomRequest, res:Response){
@@ -42,5 +42,21 @@ export class BudgetController {
         });
     }
 
-
+    async verifyPayment(req:ICustomRequest, res:Response) {
+        const { user } = req;
+        const payload: VerifyPaymentDto = req.body;
+        const { paymentReference, budgetId } = payload;
+        const verificationResponse = await verifyPayment(paymentReference);
+        if (verificationResponse.data.code === '00') {
+            const paidBudget = await payBudget(budgetId, user);
+            if (paidBudget) {
+                return res.status(200).json({
+                    message: "Budget payment confirmed",
+                });
+            }
+        }
+        return res.status(400).json({
+            message: "Budget payment could not confirmed",
+        });
+    }
 }
