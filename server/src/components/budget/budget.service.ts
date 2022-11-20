@@ -5,6 +5,7 @@ import { BudgetItemRepository, BudgetRepository } from '../../database/repositor
 import { config } from '../../config/config';
 import { IUser } from '../../database/model/user';
 import {BudgetItemType, IBudgetItem} from "../../database/model/budgetItem";
+import {BankRepository} from "../../database/repository/bank.repository";
 
 const updateNextDate = async(item: IBudgetItem) => {
     const presentDate = new Date(item.date);
@@ -45,14 +46,16 @@ export const processBudget = async (budget: IBudget) => {
 
 export const chargeBudgetPocket = async (budget: IBudget, amount: number) => {
     const reference = '';
+    const bank = await BankRepository.findOne({ _id: budget.bankId });
+    if (!bank) throw new Error('Bank not found');
     return fundPayout({
         extTransactionRef: reference,
         amount: amount.toString(),
         debitPocketReferenceId: budget.pocketId,
         type: 'CREDIT_BANK',
         publicKey: config.SEERBIT.PUBLIC,
-        bankCode: '',
-        accountNumber: '',
+        bankCode: bank.bankCode,
+        accountNumber: bank.accountNumber,
     });
 }
 
@@ -99,6 +102,7 @@ export const createBudget = async (payload: CreateBudgetDto, user: IUser) => {
         status: BudgetStatus.active,
         pocketId,
         pocketReference: reference,
+        bankId: payload.bankId,
     };
 
     const newBudget = await BudgetRepository.create(createBudgetPayload);

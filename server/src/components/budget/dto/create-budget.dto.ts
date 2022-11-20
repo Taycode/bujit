@@ -9,4 +9,5 @@ export type CreateBudgetDto = {
     endDate: Date;
     status: BudgetStatus;
     items: IBudgetItem[];
+    bankId: mongoose.Schema.Types.ObjectId;
 };
