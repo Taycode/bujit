@@ -17,16 +17,18 @@ export class BaseRepository<T> {
         return this.Model.findOne(filter, projection, options) as T;
     }
 
-    findById(id: string) {
+    async findById(id: string) {
         return this.Model.findById(id)
             .catch(() => null);
     }
 
-    all(condition = {}) {
-        return this.Model.find(condition);
+    async all(filter: FilterQuery<T>,
+              projection?: ProjectionType<T> | null,
+              options?: QueryOptions<T> | null,) {
+        return this.Model.find(filter,projection, options) as T;
     }
 
-    createMany(data = []) {
+    createMany(data : any) {
         return this.Model.insertMany(data);
     }
 }
