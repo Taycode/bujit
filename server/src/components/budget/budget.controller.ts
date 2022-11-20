@@ -2,6 +2,7 @@ import {Response} from "express";
 import { ICustomRequest } from "../../interface/custom-request.interface";
 import { BudgetItemRepository, BudgetRepository } from "../../database/repository/budget.repository";
 import { IBudgetItem } from "../../database/model/budgetItem";
+import { getPockets } from '../../components/budget/budget.service';
 
 export class BudgetController {
     async createBudget(req:ICustomRequest, res:Response) {
@@ -43,10 +44,20 @@ export class BudgetController {
     async getAllBudget(req:ICustomRequest, res:Response) {
         const { user } = req;
         const budgets = await BudgetRepository.find({userId : user._id});
+        const pockets = await getPockets()
+        const result = []
+        for (let budget of budgets) {
+            const { pocketId } = budget
+            const budgetPocket = pockets.find(pocket => (pocket.pocketId == pocketId))
+
+            result.push({...budget, pocketAmount:budgetPocket?.availableBalanceAmount || 0})
+
+        }
+        
 
         return res.status(200).json({
             message: 'Budgets Retrieved',
-            data: budgets,
+            data: result,
         });
 
     }

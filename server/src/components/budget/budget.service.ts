@@ -1,9 +1,11 @@
 import { BudgetStatus, IBudget } from '../../database/model/budget';
-import { createPocket } from '../../lib/seerbit/pocket';
+import { createPocket, getAllPocket } from '../../lib/seerbit/pocket';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { BudgetItemRepository, BudgetRepository } from '../../database/repository/budget.repository';
 import { config } from '../../config/config';
 import { IUser } from '../../database/model/user';
+import { PocketData } from '../../lib/seerbit/interface/pocket/get-pocket.interface';
+
 
 export const processBudget = async (budget: IBudget) => {
     // fetch budget items
@@ -63,3 +65,12 @@ export const createBudget = async (payload: CreateBudgetDto, user: IUser) => {
 
     return { budget: newBudget, items: newItems };
 };
+
+
+export const getPockets = async () :Promise<PocketData[]> => { 
+    const pockets = await getAllPocket({
+        publicKey: config.SEERBIT.PUBLIC,
+    })
+
+    return pockets.payload 
+}
