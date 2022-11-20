@@ -1,6 +1,7 @@
 import mongoose, { Schema, model, Date } from 'mongoose';
 
 export enum BudgetStatus {
+    inactive = "inactive",
     active = 'active',
     completed = 'completed',
 }
@@ -51,7 +52,7 @@ const BudgetSchema = new Schema<IBudget>({
   status: {
     type: String,
     required: true,
-    default: BudgetStatus.active,
+    default: BudgetStatus.inactive,
     enum: BudgetStatus,
   },
 }, { timestamps: true });
