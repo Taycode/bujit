@@ -3,6 +3,7 @@ import {ICustomRequest} from "../../interface/custom-request.interface";
 import {CreateBankDto} from "./dto/create-bank.dto";
 import {createBank, fetchUserBanks, validateBankDetails} from "./bank.service";
 import {ValidateBankDto} from "./dto/validate-bank.dto";
+import {getAvailableBanks} from "../../lib/seerbit/bank";
 
 export class BankController {
     async createBank(req: ICustomRequest, res: Response) {
@@ -41,5 +42,14 @@ export class BankController {
                 message: 'Bank details could not be verified',
             });
         }
+    }
+
+    async getAvailableBanks(req: ICustomRequest, res: Response) {
+        const getBanksResponse = await getAvailableBanks();
+        return res.status(200).json({
+            status: true,
+            message: 'Banks fetched successfully',
+            data: getBanksResponse.payload,
+        });
     }
 }
