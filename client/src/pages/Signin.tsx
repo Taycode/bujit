@@ -27,10 +27,10 @@ function Signin() {
                 <h2 className='text-bujit-500 text-2xl'>Sign In</h2>
 
                 <div className='w-full flex justify-center md:justify-between mt-7'>
-                    <button className='rounded-full border border-bujit-500 p-2 text-sm w-8 h-8 items-center mr-4 md:m-0 md:h-fit md:w-[48%] flex justify-center'>
+                    <button className='rounded-full md:rounded-lg border border-bujit-500 p-2 text-sm w-8 h-8 items-center mr-4 md:m-0 md:h-fit md:w-[48%] flex justify-center'>
                         <h2 className='flex items-center'><img className='h-5 mr-4' src={apple} /> <span className='hidden md:block'>Sign in With Apple</span></h2>
                     </button>
-                    <button className='rounded-full border border-bujit-500 p-2 text-sm w-8 h-8 items-center md:h-fit md:w-[48%] flex justify-center'>
+                    <button className='rounded-full md:rounded-lg border border-bujit-500 p-2 text-sm w-8 h-8 items-center md:h-fit md:w-[48%] flex justify-center'>
                         <h2 className='flex items-center'><img className='h-5 mr-4' src={google} /><span className='hidden md:block'> Sign in With Google</span></h2>
                     </button>
                 </div>

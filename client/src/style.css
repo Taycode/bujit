@@ -5,3 +5,21 @@
 .all-shadow {
     box-shadow: 5px 4px 84px rgba(0, 0, 0, 0.05), -5px 10px 52px rgba(0, 0, 0, 0.1);
 }
+
+.sidebar-shadow {
+    box-shadow: -2px -2px 12px rgba(0, 0, 0, 0.1), 2px 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-shadow {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35), 2px 2px 9px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-shadow {
+    box-shadow: -2px -2px 12px rgba(0, 0, 0, 0.07), -2px -2px 6px rgba(0, 0, 0, 0.07), 2px 2px 12px rgba(0, 0, 0, 0.07), 2px 2px 6px rgba(0, 0, 0, 0.07);
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+display: none;
+-webkit-appearance: none;
+}
