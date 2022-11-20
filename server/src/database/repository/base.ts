@@ -1,4 +1,4 @@
-import {Callback, FilterQuery, Model, ProjectionType, QueryOptions} from "mongoose";
+import {Callback, FilterQuery, Model, ProjectionType, QueryOptions, UpdateQuery} from "mongoose";
 
 export class BaseRepository<T> {
     private Model: Model<T>;
@@ -11,12 +11,17 @@ export class BaseRepository<T> {
         return this.Model.create(payload);
     }
 
-    async findOne(filter?: FilterQuery<T>,
+    async findOne<T>(filter?: FilterQuery<T>,
                   projection?: ProjectionType<T> | null,
                   options?: QueryOptions<T> | null,) {
         return this.Model.findOne(filter, projection, options) as T;
     }
 
+    async findOneAndUpdate<T>(filter?: FilterQuery<T>,
+                           update?: UpdateQuery<T>,
+                           options?: QueryOptions<T> | null,) {
+        return this.Model.findOneAndUpdate(filter, update, options);
+    }
     async findById(id: string) {
         return this.Model.findById(id)
             .catch(() => null);

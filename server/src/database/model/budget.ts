@@ -47,7 +47,7 @@ const BudgetSchema = new Schema<IBudget>({
     required: true,
     default: BudgetStatus.active,
     enum: BudgetStatus,
-  }
+  },
 }, { timestamps: true });
 
 export const BudgetModel = model('budget', BudgetSchema);
