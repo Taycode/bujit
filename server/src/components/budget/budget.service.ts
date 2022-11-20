@@ -1,5 +1,6 @@
 import { BudgetStatus, IBudget } from '../../database/model/budget';
 import {createPocket, fundPayout} from '../../lib/seerbit/pocket';
+import { getAllPocket } from '../../lib/seerbit/pocket';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { BudgetItemRepository, BudgetRepository } from '../../database/repository/budget.repository';
 import { config } from '../../config/config';
@@ -7,6 +8,8 @@ import { IUser } from '../../database/model/user';
 import {BudgetItemType, IBudgetItem} from "../../database/model/budgetItem";
 import {BankRepository} from "../../database/repository/bank.repository";
 import mongoose from "mongoose";
+import { PocketData } from '../../lib/seerbit/interface/pocket/get-pocket.interface';
+
 
 const updateNextDate = async(item: IBudgetItem) => {
     const presentDate = new Date(item.date);
@@ -16,6 +19,7 @@ const updateNextDate = async(item: IBudgetItem) => {
         date: nextDate,
     })
 }
+
 
 export const processBudget = async (budget: IBudget) => {
     const today = new Date();
@@ -122,3 +126,12 @@ export const createBudget = async (payload: CreateBudgetDto, user: IUser) => {
 
     return { budget: newBudget, items: newItems };
 };
+
+
+export const getPockets = async () :Promise<PocketData[]> => {
+    const pockets = await getAllPocket({
+        publicKey: config.SEERBIT.PUBLIC,
+    })
+
+    return pockets.payload
+}
