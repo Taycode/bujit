@@ -3,6 +3,8 @@ import { comparePassword, generatePassword } from './user.service';
 import { UserRepository } from '../../database/repository/user.repository';
 import { signPayload } from '../../util/jwt.util';
 import {ICustomRequest} from "../../interface/custom-request.interface";
+import {RegisterUserDto} from "./dto/register-user.dto";
+import {IUser} from "../../database/model/user";
 
 export class UserController {
     async loginUser(req: Request, res: Response) {
@@ -35,7 +37,9 @@ export class UserController {
     }
 
     async registerUser(req: Request, res: Response) {
-        const { email, password } = req.body;
+        const payload: RegisterUserDto = req.body;
+
+        const { email, password } = payload;
 
         const oldUser = await UserRepository.findOne({ email });
 
@@ -47,18 +51,25 @@ export class UserController {
         }
         const passwordHash = await generatePassword(password);
 
-        const payload = {
+        const createUserPayload: Omit<IUser, '_id'> = {
             email,
-            passwordHash
+            passwordHash,
+            bvn: payload.bvn,
+            firstName: payload.firstName,
+            lastName: payload.lastName,
+            phoneNumber: payload.phoneNumber,
         };
 
-        const newUser = await UserRepository.create(payload);
+        const newUser = await UserRepository.create(createUserPayload);
 
         return res.status(200).json({
             status: true,
             message: 'Registration successful',
             data: {
                 email: newUser.email,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                phoneNumber: newUser.phoneNumber,
             }
         });
     }
