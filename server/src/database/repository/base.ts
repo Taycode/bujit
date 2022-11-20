@@ -28,7 +28,7 @@ export class BaseRepository<T> {
         return this.Model.find(filter,projection, options);
     }
 
-    createMany(data : any) {
+    createMany(data : any): Promise<T[]> {
         return this.Model.insertMany(data);
     }
 }
