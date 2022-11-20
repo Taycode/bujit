@@ -11,16 +11,26 @@ export const processBudget = async (budget: IBudget) => {
     // charge pocket for amount
 };
 
-export const generatePocketReference = async () => {
+function generateRef(): string {
+    return Math.random().toString(36).substring(2,14); 
+};
+
+export const generatePocketReference = async () : Promise<string> => {
     // Generate reference first
+    const reference = generateRef();
     // check DB... if it exist, return the function
+    const pocketRef = await BudgetRepository.findOne({pocketReference: reference})
+    if (pocketRef){
+        return generatePocketReference()
+    }
+    return reference
 };
 
 export const createBudget = async (payload: CreateBudgetDto, user: IUser) => {
     // Generate and check reference
-    const reference = '';
+    const reference = await generatePocketReference();
     const pocket = await createPocket({
-        reference: '',
+        reference: reference,
         publicKey: config.SEERBIT.PUBLIC,
         currency: 'NGN',
         pocketFunction: 'BOTH',
