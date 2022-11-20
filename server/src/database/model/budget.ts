@@ -1,11 +1,16 @@
 import mongoose, { Schema, model, Date } from 'mongoose';
 
+export enum BudgetStatus {
+    active = 'active',
+    completed = 'completed',
+}
+
 export interface IBudget {
   name: string;
   userId: mongoose.Schema.Types.ObjectId;
   startDate: Date;
   endDate: Date;
-  status: string;
+  status: BudgetStatus;
 }
 
 const BudgetSchema = new Schema<IBudget>({
@@ -29,8 +34,8 @@ const BudgetSchema = new Schema<IBudget>({
   status: {
     type: String,
     required: true,
-    default: "active",
-    enum: ["active","completed"]
+    default: BudgetStatus.active,
+    enum: BudgetStatus,
   }
 }, { timestamps: true });
 
