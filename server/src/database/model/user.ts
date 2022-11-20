@@ -4,6 +4,10 @@ export interface IUser {
     _id: mongoose.Schema.Types.ObjectId;
     email: string;
     passwordHash: string;
+    bvn: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -11,9 +15,25 @@ const UserSchema = new Schema<IUser>({
     type: String,
     required: true
   },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    phoneNumber: {
+        type: String,
+        required: true
+    },
   passwordHash: {
     type: String,
     required: true
+  },
+  bvn: {
+    type: String,
+    required: true,
   }
 }, { timestamps: true });
 

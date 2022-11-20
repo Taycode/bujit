@@ -5,12 +5,15 @@ export enum BudgetStatus {
     completed = 'completed',
 }
 
-export interface IBudget {
+export type IBudget = {
   name: string;
   userId: mongoose.Schema.Types.ObjectId;
+  _id: mongoose.Schema.Types.ObjectId;
   startDate: Date;
   endDate: Date;
   status: BudgetStatus;
+  pocketId: string;
+  pocketReference: string;
 }
 
 const BudgetSchema = new Schema<IBudget>({
@@ -18,6 +21,14 @@ const BudgetSchema = new Schema<IBudget>({
     type: String,
     required: true
   },
+  pocketId: {
+        type: String,
+        required: true
+    },
+  pocketReference: {
+        type: String,
+        required: true
+    },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,

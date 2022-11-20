@@ -7,7 +7,7 @@ export class BaseRepository<T> {
         this.Model = model;
     }
 
-    create(payload = {}) {
+    create(payload = {}): Promise<T> {
         return this.Model.create(payload);
     }
 

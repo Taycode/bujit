@@ -8,5 +8,6 @@ export const config = {
       SECRET: process.env.SEERBIT_SECRET as string,
       PUBLIC: process.env.SEERBIT_PUBLIC as string,
       BASE_URL: process.env.SEERBIT_BASE_URL as string,
+      BUSINESS_NAME: process.env.SEERBIT_BUSINESS_NAME as string,
   }
 };
