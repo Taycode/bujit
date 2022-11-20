@@ -22,10 +22,10 @@ export class BaseRepository<T> {
             .catch(() => null);
     }
 
-    async all(filter: FilterQuery<T>,
-              projection?: ProjectionType<T> | null,
-              options?: QueryOptions<T> | null,) {
-        return this.Model.find(filter,projection, options) as T;
+    async find(filter: FilterQuery<T>,
+               projection?: ProjectionType<T> | null,
+               options?: QueryOptions<T> | null): Promise<T[]> {
+        return this.Model.find(filter,projection, options);
     }
 
     createMany(data : any) {
