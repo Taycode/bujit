@@ -1,31 +1,31 @@
-import {Request, Response} from "express"
-import { ICustomRequest } from "../../interface/custom-request.interface"
-import { BudgetItemRepository, BudgetRepository } from "../../database/repository/budget.repository"
-import { IBudgetItem } from "../../database/model/budgetItem"
+import {Request, Response} from "express";
+import { ICustomRequest } from "../../interface/custom-request.interface";
+import { BudgetItemRepository, BudgetRepository } from "../../database/repository/budget.repository";
+import { IBudgetItem } from "../../database/model/budgetItem";
 
 export class BudgetController {
     async createBudget(req:ICustomRequest, res:Response) {
-        const {user} = req
-        const {name, items, start_date, end_date, status} = req.body
+        const {user} = req;
+        const {name, items, start_date, end_date, status} = req.body;
         if (!name){
-            res.status(400).send({message:"Budget Name is required"})
+            res.status(400).send({message:"Budget Name is required"});
         }
         if (!start_date || !end_date) {
-            res.status(400).send({message:"Start and End date is required"})
+            res.status(400).send({message:"Start and End date is required"});
         }
 
         const data = {
-            name: name,
+            name,
             startDate: start_date,
             endDate: end_date,
             userId: user._id,
-            status: status
-        }
+            status
+        };
 
-        const newBudget = await BudgetRepository.create(data)
+        const newBudget = await BudgetRepository.create(data);
         const budgetItems = items as IBudgetItem[];
-        const new_items = budgetItems.map(item => ({...item, budgetId: newBudget._id}))
-        const newItems = await BudgetItemRepository.createMany(new_items)
+        const new_items = budgetItems.map(item => ({...item, budgetId: newBudget._id}));
+        const newItems = await BudgetItemRepository.createMany(new_items);
 
 
         return res.status(201).json({
@@ -41,7 +41,7 @@ export class BudgetController {
     }
 
     async getAllBudget(req:ICustomRequest, res:Response) {
-        const { user } = req
+        const { user } = req;
         const budgets = await BudgetRepository.find({userId : user._id});
 
         return res.status(200).json({
@@ -52,10 +52,10 @@ export class BudgetController {
     }
 
     async getBudget(req: ICustomRequest, res:Response){
-        const budgetid = req.params.id
+        const budgetid = req.params.id;
 
-        const budget = await BudgetRepository.findOne({_id: budgetid})
-        const items = await BudgetItemRepository.find({budgetId: budgetid})
+        const budget = await BudgetRepository.findOne({_id: budgetid});
+        const items = await BudgetItemRepository.find({budgetId: budgetid});
 
         return res.status(200).json({
             message: "Budget Retrieved",
@@ -63,7 +63,7 @@ export class BudgetController {
                 budget,
                 items
             }
-        })
+        });
     }
 
 
