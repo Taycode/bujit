@@ -1,12 +1,21 @@
 import mongoose, { Schema, model } from 'mongoose';
 
-const BudgetItemSchema = new Schema({
+export interface IBudgetItem {
+  name: string;
+  budgetId: mongoose.Schema.Types.ObjectId;
+  type: string;
+  amount: Number;
+  date: Date;
+}
+
+
+const BudgetItemSchema = new Schema<IBudgetItem>({
   budgetId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'budget',
     required: true
   },
-  item: {
+  name: {
     type: String,
     required: true
   },
@@ -18,8 +27,12 @@ const BudgetItemSchema = new Schema({
     type: String,
     required: true,
     enum: ['recurring', 'non-recurring']
+  },
+  date: {
+    type: Date,
+    required: true
   }
 
 });
 
-module.exports = model('budgetItems', BudgetItemSchema);
+export const BudgetItemModel = model('budgetItems', BudgetItemSchema);

@@ -12,7 +12,7 @@ export async function validateToken(req: ICustomRequest, res: Response, next: Ne
             authorization = authorization.replace('Bearer ', '');
             const decodedToken = verifyToken(authorization) as IUser;
             const { _id } = decodedToken;
-            const user = await UserRepository.findOne({ _id }, { passwordHash: 0, _id: 0, __v: 0 });
+            const user = await UserRepository.findOne({ _id }, { passwordHash: 0, __v: 0 });
             if (!user) {
                 return res.status(401).json({
                     status: false,
