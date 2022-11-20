@@ -36,6 +36,7 @@ export const processBudget = async (budget: IBudget) => {
 
     await chargeBudgetPocket(budget, totalAmount);
 
+    // update next Date for recurring budgets
     const recurringItems = budgetItems.filter((budget) => budget.type === BudgetItemType.recurring);
     await Promise.all(recurringItems.map(item => {
         updateNextDate(item);

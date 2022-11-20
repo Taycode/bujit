@@ -14,7 +14,7 @@ export class BaseRepository<T> {
     async findOne<T>(filter?: FilterQuery<T>,
                   projection?: ProjectionType<T> | null,
                   options?: QueryOptions<T> | null,) {
-        return this.Model.findOne(filter, projection, options) as T;
+        return this.Model.findOne(filter, projection, options);
     }
 
     async findOneAndUpdate<T>(filter?: FilterQuery<T>,
