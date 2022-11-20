@@ -3,11 +3,11 @@ import mongoose, { Schema, model } from 'mongoose';
 export interface IUser {
     _id: mongoose.Schema.Types.ObjectId;
     email: string;
-    passwordHash: string;
     bvn: string;
     firstName: string;
     lastName: string;
     phoneNumber: string;
+    passwordHash: string;
 }
 
 const UserSchema = new Schema<IUser>({

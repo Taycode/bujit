@@ -1,19 +1,67 @@
 import { BudgetStatus, IBudget } from '../../database/model/budget';
-import { createPocket } from '../../lib/seerbit/pocket';
+import {createPocket, fundPayout} from '../../lib/seerbit/pocket';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { BudgetItemRepository, BudgetRepository } from '../../database/repository/budget.repository';
 import { config } from '../../config/config';
 import { IUser } from '../../database/model/user';
+import {BudgetItemType, IBudgetItem} from "../../database/model/budgetItem";
+import {BankRepository} from "../../database/repository/bank.repository";
+
+const updateNextDate = async(item: IBudgetItem) => {
+    const presentDate = new Date(item.date);
+    const nextDate = new Date(presentDate);
+    nextDate.setDate(nextDate.getDate() + item.interval);
+    await BudgetItemRepository.findOneAndUpdate({ _id: item._id }, {
+        date: nextDate,
+    })
+}
 
 export const processBudget = async (budget: IBudget) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() - 1);
+
     // fetch budget items
+
+    const budgetItems = await BudgetItemRepository.find({
+        budgetId: budget._id,
+        date: { $gte: today, $lt: tomorrow },
+    });
+
     // calculate amount
+
+    const totalAmount = budgetItems.reduce((prev, next) => prev + next.amount, 0);
+
     // charge pocket for amount
+
+    await chargeBudgetPocket(budget, totalAmount);
+
+    // update next Date for recurring budgets
+    const recurringItems = budgetItems.filter((budget) => budget.type === BudgetItemType.recurring);
+    await Promise.all(recurringItems.map(item => {
+        updateNextDate(item);
+    }))
 };
 
+export const chargeBudgetPocket = async (budget: IBudget, amount: number) => {
+    const reference = '';
+    const bank = await BankRepository.findOne({ _id: budget.bankId });
+    if (!bank) throw new Error('Bank not found');
+    return fundPayout({
+        extTransactionRef: reference,
+        amount: amount.toString(),
+        debitPocketReferenceId: budget.pocketId,
+        type: 'CREDIT_BANK',
+        publicKey: config.SEERBIT.PUBLIC,
+        bankCode: bank.bankCode,
+        accountNumber: bank.accountNumber,
+    });
+}
+
 function generateRef(): string {
-    return Math.random().toString(36).substring(2,14); 
-};
+    return Math.random().toString(36).substring(2,14);
+}
 
 export const generatePocketReference = async () : Promise<string> => {
     // Generate reference first
@@ -54,6 +102,7 @@ export const createBudget = async (payload: CreateBudgetDto, user: IUser) => {
         status: BudgetStatus.active,
         pocketId,
         pocketReference: reference,
+        bankId: payload.bankId,
     };
 
     const newBudget = await BudgetRepository.create(createBudgetPayload);

@@ -14,6 +14,7 @@ export type IBudget = {
   status: BudgetStatus;
   pocketId: string;
   pocketReference: string;
+  bankId: mongoose.Schema.Types.ObjectId;
 }
 
 const BudgetSchema = new Schema<IBudget>({
@@ -34,6 +35,11 @@ const BudgetSchema = new Schema<IBudget>({
     required: true,
     ref: 'user'
   },
+    bankId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'bank'
+    },
   startDate: {
     type: Date,
     required: true
@@ -47,7 +53,7 @@ const BudgetSchema = new Schema<IBudget>({
     required: true,
     default: BudgetStatus.active,
     enum: BudgetStatus,
-  }
+  },
 }, { timestamps: true });
 
 export const BudgetModel = model('budget', BudgetSchema);
