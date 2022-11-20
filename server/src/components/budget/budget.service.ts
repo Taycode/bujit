@@ -6,6 +6,7 @@ import { config } from '../../config/config';
 import { IUser } from '../../database/model/user';
 import {BudgetItemType, IBudgetItem} from "../../database/model/budgetItem";
 import {BankRepository} from "../../database/repository/bank.repository";
+import mongoose from "mongoose";
 
 const updateNextDate = async(item: IBudgetItem) => {
     const presentDate = new Date(item.date);
@@ -58,6 +59,15 @@ export const chargeBudgetPocket = async (budget: IBudget, amount: number) => {
         accountNumber: bank.accountNumber,
     });
 }
+
+export const payBudget = async (budgetId: mongoose.Schema.Types.ObjectId, user: IUser) => {
+    return BudgetRepository.findOneAndUpdate(
+        {_id: budgetId, status: BudgetStatus.inactive, userId : user._id},
+        { status: BudgetStatus.active },
+        { new: true },
+    );
+};
+
 
 function generateRef(): string {
     return Math.random().toString(36).substring(2,14);

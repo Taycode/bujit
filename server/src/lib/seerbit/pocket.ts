@@ -5,6 +5,8 @@ import { ICreatePocket } from './interface/pocket/create-pocket.interface';
 import { IGetPocketBalance } from './interface/pocket/get-pocket-balance.interface';
 import { FundPayoutDto } from './dto/pocket/fund-payout.dto';
 import { IFundPayout } from './interface/pocket/fund-payout.interface';
+import {NameEnquiryDto} from "./dto/pocket/name-enquiry.dto";
+import {INameEnquiry} from "./interface/pocket/name-enquiry.interface";
 
 export const createPocket = async (payload: CreatePocketDto): Promise<ICreatePocket> => {
     return new Promise((resolve, reject) => {
@@ -39,3 +41,13 @@ export const fundPayout = async (payload: FundPayoutDto): Promise<IFundPayout> =
     });
 };
 
+export const nameEnquiry = async (payload: NameEnquiryDto): Promise<INameEnquiry> => {
+    return new Promise((resolve, reject) => {
+        client.post('/pocket/api/v2/payout/enquiry', payload).then((res) => {
+            resolve(res.data);
+        })
+            .catch((err) => {
+                reject(err?.response?.data);
+            });
+    });
+}
