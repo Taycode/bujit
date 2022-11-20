@@ -9,5 +9,7 @@ const router: Router = Router();
 router.post('/create', validateToken, bankController.createBank);
 router.get('/fetch', validateToken, bankController.fetchBanks);
 router.post('/validate', validateToken, bankController.validateBank);
+router.post('/get-banks', validateToken, bankController.getAvailableBanks);
+
 
 export const BankRouter = router;

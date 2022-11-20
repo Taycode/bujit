@@ -1,5 +1,5 @@
 import { Express, Request, Response } from 'express';
-import BudgetRouter from './budget.router';
+import {BudgetRouter} from './budget.router';
 import { UserRouter } from './user.router';
 import {BankRouter} from "./bank.router";
 
