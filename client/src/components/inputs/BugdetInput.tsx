@@ -4,14 +4,16 @@ interface InputProps {
     type: string,
     name: string,
     value: string | number,
-    placeholder: string
+    placeholder: string,
+    onChange : Function
 }
 
 function BudgetInput({
     type,
     name,
     value,
-    placeholder
+    placeholder,
+    onChange
 }: InputProps) {
     const [focused, setFocus] = React.useState<boolean>(false);
 
@@ -26,7 +28,7 @@ function BudgetInput({
                         // console.log(e.target)
                         if (type !== "password")
                             setFocus(false);
-                    }} type={type} />
+                    }} type={type} onChange={(e : any) => onChange(e.target)} value={value}/>
             </div>
         </div>
     )
