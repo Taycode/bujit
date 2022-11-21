@@ -14,7 +14,8 @@ interface InputProps {
         good: boolean,
         message?: string
     } | null,
-    placeholder: string
+    placeholder: string,
+    onChange? : Function
 }
 
 function Input({
@@ -22,10 +23,13 @@ function Input({
     name,
     value,
     status,
-    placeholder
+    placeholder,
+    onChange
 }: InputProps) {
     const [focused, setFocus] = React.useState<boolean>(false);
     const [inputType, setType] = React.useState<string>(type);
+
+    // console.log(value, '=> inside inout')
     return (
         <div className='w-full pb-4'>
             <div className='flex w-full justify-between items-center'>
@@ -38,7 +42,7 @@ function Input({
                             // console.log(e.target)
                             if (type !== "password")
                                 setFocus(false);
-                        }} type={inputType} />
+                        }} type={inputType} name={name} value={value} onChange={e => onChange && onChange(e.target)} />
 
                     {
                         (value || focused) && type === "password" ?

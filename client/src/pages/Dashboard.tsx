@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Scrollbar from 'react-scrollbar';
+import Scrollbar from 'react-custom-scrollbars';
 
 // component imports
 import BudgetCard from "../components/bujit/BudgetCard";
@@ -8,24 +8,48 @@ import BudgetTable from "../components/bujit/BudgetTable";
 
 // assets import
 import add from '../assets/add.svg';
+import { getRequest } from "../utils/api";
 
 function Dashboard() {
+    const [budgets, setBudget] = React.useState<any>([])
+    async function getBudgets() {
+        const response = await getRequest('budget/fetch');
+        console.log(response);
+
+        if (response?.status === 200) {
+            setBudget(response.data.data)
+        }
+    }
+
+    React.useEffect(() => {
+        getBudgets();
+    }, [])
+
+    console.log(budgets)
     return (
         <div className="py-5 pr-3">
-            <h2 className="text-2xl text-gray-500 font-semibold mb-5">Dashboard</h2>
+
+            {/* <h2 className="text-2xl text-gray-500 font-semibold mb-5">Dashboard</h2> */}
+            <div className='flex justify-between'>
+                <h2 className="text-2xl text-gray-500 font-semibold ">Dashboard</h2>
+                <Link to="/budgets/create" className="h-fit w-fit text-white flex bg-bujit-500 p-3 rounded-lg">
+                    <img src={add} className="mr-2" />
+                    Create Budget
+                </Link>
+            </div>
 
             <div>
                 {/* Budget cards */}
                 <div className="flex justify-between">
-                    <div className="flex flex-wrap w-[calc(100%-154px)]">
-                        <BudgetCard style={0} />
-                        <BudgetCard style={1} />
-                        <BudgetCard style={2} />
-                    </div>
-                    <Link to="/budgets/create" className="mt-[75px] h-fit w-fit text-white flex bg-bujit-500 p-3 rounded-lg">
-                        <img src={add} className="mr-2" />
-                        Create Budget
-                    </Link>
+                    <Scrollbar className="w-full !h-60">
+                        <div className="inline-block whitespace-nowrap">
+                            {
+                                budgets.map((budget : any, index : number) => {
+                                    return <BudgetCard style={index % 3} data={budget}/>
+                                })
+                            }
+                        </div>
+                    </Scrollbar>
                 </div>
 
                 <h2 className="mt-5">Your next disbursement is <span className="text-bujit-600">&#8358;12,000</span> on <span className="text-bujit-600">30-10-2001</span> from <span className="text-bujit-600">Shopping Budget</span></h2>
