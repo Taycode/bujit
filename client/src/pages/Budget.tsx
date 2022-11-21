@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { getRequest } from '../utils/api';
 //component imports
 import BudgetDropDown from '../components/bujit/BudgetDropDown';
 
@@ -8,6 +8,20 @@ import BudgetDropDown from '../components/bujit/BudgetDropDown';
 import add from '../assets/add.svg';
 
 function Budget() {
+    const [budgets, setBudget] = React.useState<any>([])
+    async function getBudgets() {
+        const response = await getRequest('budget/fetch');
+        console.log(response);
+
+        if (response?.status === 200) {
+            setBudget(response.data.data)
+        }
+    }
+
+    React.useEffect(() => {
+        getBudgets();
+    }, [])
+
     return (
         <div className="py-5 pr-3">
             <div className='flex justify-between'>
@@ -18,10 +32,10 @@ function Budget() {
                 </Link>
             </div>
 
-            <BudgetDropDown />
-            <BudgetDropDown />
-            <BudgetDropDown />
-            <BudgetDropDown />
+            <BudgetDropDown title="Active" budgets={budgets}/>
+            <BudgetDropDown title='Completed'/>
+            <BudgetDropDown title='All' budgets={budgets}/>
+
         </div>
     )
 }

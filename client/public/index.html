@@ -39,5 +39,38 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js"></script>
+
+    <script type ="text/javascript">
+      function paywithSeerbit({
+        ammount,
+        email,
+        publickey,
+        name,
+        
+      }) {
+        SeerbitPay ({
+        //replace with your public key
+        "public key": "sbpub_yywuuuywyyttwttwy",
+        "tranref": new Date().getTime(),
+        "currency": "NGN",
+        "country": "NG",
+        "amount": "150.00",
+        "email": "test@emaildomain.com",
+        //optional field. Set to true to allow customer set the amount
+        "setAmountByCustomer": false,
+        "full_name": "John Doe", //optional
+        "callbackurl": "http://yourdomain.com",
+        },
+        function callback(response, closeModal) {
+         console.log(response) //response of transaction
+        },
+        function close(close) {
+         console.log(close) //transaction close
+        })
+        }
+    </script>
   </body>
+
+
 </html>

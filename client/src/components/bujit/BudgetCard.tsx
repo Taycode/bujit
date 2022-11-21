@@ -6,11 +6,12 @@ import { ReactComponent as Cloud } from '../../assets/cloud.svg';
 import cloud from '../../assets/cloud.svg';
 
 interface BudjetcCardProps {
-    style: number
+    style: number,
+    data : any
 }
-function BudgetCard({ style }: BudjetcCardProps) {
+function BudgetCard({ style, data  }: BudjetcCardProps) {
     return (
-        <div className={`rounded-md card-shadow flex justify-between flex-col text-white h-44 mr-5 my-5 w-80 p-3 ${style === 0 ? 'bg-bujit-500' : style === 1 ? "bg-[#F9B81E]" : "bg-[#804000]"} relative overflow-hidden`}>
+        <div className={`rounded-md card-shadow  justify-between flex-col text-white h-44 mr-5 my-5 inline-flex !w-80 p-3 ${style === 0 ? 'bg-bujit-500' : style === 1 ? "bg-[#F9B81E]" : "bg-[#804000]"} relative overflow-hidden`}>
             {
                 style === 0 ?
                     <div className='w-full h-full absolute'>
@@ -29,12 +30,12 @@ function BudgetCard({ style }: BudjetcCardProps) {
                         </div>
             }
             <div>
-                <h2>October Budget</h2>
+                <h2>{data.name} Budget</h2>
                 <h2 className='text-sm mt-1'>Balance</h2>
-                <h2 className='text-3xl font-semibold'>&#8358;14,000</h2>
+                <h2 className='text-3xl font-semibold'>&#8358;{Math.floor(Math.random() * 100)},000</h2>
             </div>
             <div>
-                <h2 className='text-sm'>New Disbursement of <span className={`font-semibold ${[0,1].includes(style) ? 'text-[#804B0E]' : 'text-bujit-500'}`}>&#8358;34,000</span> on <span className={`font-semibold ${[0,1].includes(style) ? 'text-[#804B0E]' : 'text-bujit-500'}`}>12/12/2001</span></h2>
+                <h2 className='text-sm'>New Disbursement of <span className={`font-semibold ${[0,1].includes(style) ? 'text-[#804B0E]' : 'text-bujit-500'}`}>&#8358;2,000</span> on <span className={`font-semibold ${[0,1].includes(style) ? 'text-[#804B0E]' : 'text-bujit-500'}`}>12/12/2001</span></h2>
                 <h2 className='text-sm'>Created <span className={`font-semibold ${[0,1].includes(style) ? 'text-[#804B0E]' : 'text-bujit-500'}`}>10/11/2001</span></h2>
             </div>
         </div>
